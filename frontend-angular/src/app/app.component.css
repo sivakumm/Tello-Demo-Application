@@ -1,0 +1,26 @@
+.toolbar-css {
+  background-color: #fde70e;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+button:focus {
+  outline: none;
+  border: 0;
+}
+
+.mat-slider-vertical {
+  height: 50%;
+}
+
+.top-drone img {
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+}
+.top-drone img:hover {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}

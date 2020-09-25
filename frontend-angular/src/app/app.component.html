@@ -1,0 +1,190 @@
+<mat-toolbar class="toolbar-css">
+  <img src="https://www.fhnw.ch/de/++theme++web16theme/assets/media/img/fachhochschule-nordwestschweiz-fhnw-logo.svg">
+  <h1 class="ml-4">IoT Engineering</h1>
+  <span class="toolbar-spacer"></span>
+  <h3 class="mr-3"><a href="https://www.ryzerobotics.com/tello" matTooltip="Go to official Ryze Tello" matTooltipPosition="below" style="color: black; text-decoration: none;" target="_blank">Tello</a></h3>
+  <span class="top-drone"><a href="https://www.ryzerobotics.com/tello" matTooltip="Go to official Ryze Tello" matTooltipPosition="below" style="text-decoration: none;" target="_blank"><img src="src/assets/tello_top.png" width="auto" height="60px"></a></span>
+</mat-toolbar>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6" style="border-bottom: 2px grey solid;">
+      <img *ngIf="telloState.h > 0" src="src/assets/drone_flying.png" width="auto" height="100px" style="position: absolute;" [style.top]="droneHeight" [style.left]="droneRollPosStr" [style.transform]="droneRoll">
+      <img *ngIf="telloState.h == 0" src="src/assets/drone_landed.png" width="auto" height="100px" style="position: absolute; top: 80%;" [style.left]="droneRollPosStr" [style.transform]="droneRoll">
+    </div>
+    <div class="col-5">
+      <div class="container-fluid">
+        <h4 class="mb-2">Control Unit<i class="fas fa-gamepad ml-3"></i></h4>
+        <div class="row">
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="takeoff" matTooltip="take off" matTooltipPosition="right">
+              <i class="fas fa-plane-departure"></i>
+            </button>
+          </div>
+          <div class="col-6">&nbsp;</div>
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="land" matTooltip="land" matTooltipPosition="left">
+              <i class="fas fa-plane-arrival"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">&nbsp;</div>
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="forward" matTooltip="fly forward" matTooltipPosition="above">
+              <i class="fas fa-arrow-up"></i>
+            </button>
+          </div>
+          <div class="col-4">&nbsp;</div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">&nbsp;</div>
+          <div class="col-2 my-auto">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="left" matTooltip="fly left" matTooltipPosition="left">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+          </div>
+          <div class="col-2"><img src="src/assets/tello_top.png" width="auto" height="60px"></div>
+          <div class="col-2 my-auto">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="right" matTooltip="fly right" matTooltipPosition="right">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+          <div class="col-2">&nbsp;</div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">&nbsp;</div>
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="back" matTooltip="fly back" matTooltipPosition="below">
+              <i class="fas fa-arrow-down"></i>
+            </button>
+          </div>
+          <div class="col-4">&nbsp;</div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="ccw" matTooltip="rotate counter-clockwise" matTooltipPosition="right">
+              <i class="fas fa-undo"></i>
+            </button>
+          </div>
+          <div class="col-6">&nbsp;</div>
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="cw" matTooltip="rotate clockwise" matTooltipPosition="left">
+              <i class="fas fa-redo"></i>
+            </button>
+          </div>
+        </div>
+
+        <hr>
+
+        <h4 class="mb-2">Flips<i class="fas fa-sync ml-3"></i></h4>
+        <div class="row">
+          <div class="col-4">&nbsp;</div>
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="flip_forward" matTooltip="flip forward" matTooltipPosition="above">
+              <i class="fas fa-caret-square-up"></i>
+            </button>
+          </div>
+          <div class="col-4">&nbsp;</div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">&nbsp;</div>
+          <div class="col-2 my-auto">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="flip_left" matTooltip="flip left" matTooltipPosition="left">
+              <i class="fas fa-reply"></i>
+            </button>
+          </div>
+          <div class="col-2"><img src="src/assets/tello_top.png" width="auto" height="60px"></div>
+          <div class="col-2 my-auto">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="flip_right" matTooltip="flip right" matTooltipPosition="right">
+              <i class="fas fa-share"></i>
+            </button>
+          </div>
+          <div class="col-2">&nbsp;</div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">&nbsp;</div>
+          <div class="col-2">
+            <button [disabled]="commandSent" (click)="onCommandButtonClick($event)" mat-raised-button color="primary" id="flip_backward" matTooltip="flip backward" matTooltipPosition="below">
+              <i class="fas fa-caret-square-down"></i>
+            </button>
+          </div>
+          <div class="col-4">&nbsp;</div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col text-center">
+            <i *ngIf="telloState.bat >= 80" class="fas fa-battery-full" style="color: green;"  matTooltip="Battery level" matTooltipPosition="above"></i>
+            <i *ngIf="telloState.bat >= 60 && telloState.bat < 80" class="fas fa-battery-three-quarters" style="color: green;"  matTooltip="Battery level" matTooltipPosition="above"></i>
+            <i *ngIf="telloState.bat >= 40 && telloState.bat < 60" class="fas fa-battery-half" style="color: green;"  matTooltip="Battery level" matTooltipPosition="above"></i>
+            <i *ngIf="telloState.bat >= 20 && telloState.bat < 40" class="fas fa-battery-quarter" style="color: orange;"  matTooltip="Battery level" matTooltipPosition="above"></i>
+            <i *ngIf="telloState.bat < 20" class="fas fa-battery-empty" style="color: red;"  matTooltip="Battery level" matTooltipPosition="above"></i>
+            <br>
+            {{ telloState.bat }} %
+          </div>
+
+          <div class="col text-center">
+            <i class="fas fa-tachometer-alt" matTooltip="Velocity" matTooltipPosition="above"></i><br>
+            {{ currentVelocity }} cm/s
+          </div>
+
+          <!-- <div class="col text-center">
+            <i class="fas fa-fighter-jet"></i><br>
+            {{ currentAcceleration }}mg
+          </div> -->
+
+          <div class="col text-center">
+            <i class="fas fa-thermometer-half" matTooltip="inner Temperature" matTooltipPosition="above"></i><br>
+            {{ currentTemperature }} °C
+          </div>
+
+          <div class="col text-center">
+            <i class="fas fa-stopwatch" matTooltip="fly time" matTooltipPosition="above"></i><br>
+            {{ telloState.time }} s
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-1">
+      <h4 class="mb-2">&nbsp;</h4>
+      <mat-slider [disabled]="commandSent" vertical="true" thumbLabel="true" min="0" max="200" step="1" layout-align="center" [(ngModel)]="currentHeight" (change)="onHeightChange($event)" matTooltip="set height" matTooltipPosition="below"></mat-slider>
+      <img src="src/assets/drone_flying.png" width="auto" height="30px" style="position: absolute; left: 50px;" [style.top]="droneHeightSlider">
+      <div class="my-1">&nbsp;</div>
+      <button mat-fab color="warn" class="mt-5" matTooltip="EMERGENCY STOP" (click)="onCommandButtonClick($event)" id="emergency">
+        <i class="fas fa-stop"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer style="position: absolute; bottom: 0; width: 100%; background-color: #012340;" class="text-white-50 py-1">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col text-left">
+        <a href="https://www.linkedin.com/in/mithusan-sivakumar/" style="color: white; text-decoration: none;" target="_blank" matTooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/sivakumm" style="color: white; text-decoration: none;" target="_blank" matTooltip="GitHub" class="ml-3"><i class="fab fa-github"></i></a>
+      </div>
+      <div class="col text-right">
+        <small class="text-left">
+          <a href="http://www.creativecommons.ch/" class="text-white-50" style="text-decoration: none;" target="_blank" matTooltip="Creative Commons">
+            <i class="fab fa-creative-commons"></i>
+            <i class="fab fa-creative-commons-by ml-1"></i>
+            <i class="fab fa-creative-commons-sa mx-1"></i>
+          </a>
+          Mithusan Sivakumar, FHNW
+        </small>
+      </div>
+    </div>
+  </div>
+</footer>

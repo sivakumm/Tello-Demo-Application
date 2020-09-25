@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button:focus {
+  outline: none;
+  border: 0;
+}
+
+.snackBar-failedAPI {
+  background-color: black;
+  color: red;
+  font-weight: bold;
+}
+
+.snackBar-failedAPI .mat-simple-snackbar-action {
+  color: white;
+}
+
+.snackBar-successAPI {
+  background-color: black;
+  color: green;
+  font-weight: bold;
+}
